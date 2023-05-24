@@ -1,0 +1,30 @@
+{
+  "list_user": [
+    {
+      "id": 1,
+      "email": "admin",
+      "password": "123",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCEt8PfaBio4NMKvuBHKni01nCg60J-bGhaQ&usqp=CAU"
+    },
+    {
+      "email": "email1",
+      "password": "pw1",
+      "id": 2
+    },
+    {
+      "email": "ff",
+      "password": "ff",
+      "id": 3
+    },
+    {
+      "email": "aa",
+      "password": "aaa",
+      "id": 4
+    },
+    {
+      "email": "qq",
+      "password": "qq",
+      "id": 5
+    }
+  ]
+}
