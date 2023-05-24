@@ -25,6 +25,11 @@
       "email": "qq",
       "password": "qq",
       "id": 5
+    },
+    {
+      "email": "anh@gmail.com",
+      "password": "xuananh123",
+      "id": 6
     }
   ]
 }
