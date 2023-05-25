@@ -33,7 +33,7 @@ const doLogin = () =>{
          else{
              try {
                  await AsyncStorage.setItem('loginInfo', JSON.stringify(objU))   // từ khóa : loginInfo -- truyền vào mảng là chuỗi json
-                 props.navigation.navigate('TrangChu'),
+                 props.navigation.navigate('MainContainer'),
                  alert("đăng nhập thành công")
                } catch (e) {
                console.log(e);
