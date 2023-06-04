@@ -16,7 +16,7 @@ const doLogin = () =>{
         alert("Chưa nhập password"); return ;
     }
 
-    let url_api = "http://192.168.1.105:3000/list_user?email=" + emaildn ;
+    let url_api = "http://172.16.10.106:3000/list_user?email=" + emaildn ;
     fetch( url_api)
     .then ((res)=>{
      return res.json();
@@ -33,7 +33,7 @@ const doLogin = () =>{
          else{
              try {
                  await AsyncStorage.setItem('loginInfo', JSON.stringify(objU))   // từ khóa : loginInfo -- truyền vào mảng là chuỗi json
-                 props.navigation.navigate('MainContainer'),
+                 props.navigation.navigate('Main'),
                  alert("đăng nhập thành công")
                } catch (e) {
                console.log(e);

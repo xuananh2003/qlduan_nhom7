@@ -5,6 +5,8 @@ const st = StyleSheet.create({
         flex: 1,
         backgroundColor: "#FFFFCC",
         alignItems: 'center',
+        paddingTop: 20,
+
 
 
     },
@@ -41,7 +43,7 @@ const st = StyleSheet.create({
     login: {
         fontSize: 20,
         backgroundColor: '#0066FF',
-       
+
         color: 'white',
         fontWeight: 'bold',
         width: 320,
@@ -84,7 +86,53 @@ const st = StyleSheet.create({
         padding: 4,
         fontWeight: 'bold'
 
+    }, b1: {
+        borderWidth: 0.5,
+        padding: 10,
+        backgroundColor: '#FFCC66',
+        margin: 5,
+
+
     },
+    v1: {
+
+        marginLeft: 0
+    },
+    td: {
+        color: '#FF3333',
+        fontSize: 20,
+
+        fontWeight: 'bold'
+    },
+    button: {
+        alignItems: 'center',
+        backgroundColor: '#DDDDDD',
+        padding: 10,
+    },
+    countContainer: {
+        alignItems: 'center',
+        padding: 10,
+    },
+    countText: {
+        color: '#FF00FF',
+    },
+    render_giohang: {
+        backgroundColor: 'rgb(127, 255, 212)',
+        marginTop: 20,
+        flexDirection: 'row'
+    },
+    searchBox:{
+paddingHorizontal:20,
+paddingVertical:10,
+borderColor:'black',
+borderWidth:1,
+borderRadius:8,
+padding:5,
+width:350,
+marginBottom:20,
+marginRight:50
+    }
+
 })
 
 export default st
