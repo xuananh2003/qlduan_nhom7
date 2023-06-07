@@ -9,7 +9,7 @@ const GioHang = (props) => {
     const [isLoading, setisLoading] = useState(true);
 
     const getListPro = async () => {
-        let url_api_giohang = 'http://172.16.10.106:3000/list_giohang'
+        let url_api_giohang = 'http://192.168.1.21:3000/list_giohang'
 
         try {
             const response = await fetch(url_api_giohang);

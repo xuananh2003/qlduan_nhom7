@@ -24,7 +24,7 @@ const Tab =  createBottomTabNavigator();
 const App = () =>{
   return(
    <NavigationContainer>
-    <StackApp.Navigator  initialRouteName='Main'>
+    <StackApp.Navigator  initialRouteName='gt'>
       <StackApp.Screen name='gt' component={GioiThieu} options={{headerShown:false}}/>
       <StackApp.Screen name='DangNhap' component={DangNhap} options={{headerShown:false}}/>
       <StackApp.Screen name='DangKi' component={DangKi} options={{headerShown:false}}/>

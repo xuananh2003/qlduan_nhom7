@@ -6,16 +6,13 @@ import React from "react";
 
 
 
-
-
-
 const TrangChu = (props) => {
     const [isLoading, setisLoading] = useState(true);
     const [dsPro, setdsPro] = useState([]);
 
 
     const getListPro = async () => {
-        let api_url_pro = 'http://172.16.10.106:3000/list_pro'
+        let api_url_pro = 'http://192.168.1.21:3000/list_pro'
         try {
             const response = await fetch(api_url_pro);
             const json = await response.json();
@@ -29,7 +26,7 @@ const TrangChu = (props) => {
 
     const renderPro = ({ item }) => {
         return (
-            <View style={{ flexDirection: 'row', width: 200, flexWrap: 'wrap', display: 'flex', borderWidth:1 }}>
+            <View style={{ width: 200,height:300}}>
                
                 <View style={st.b1}>
                     <View style={st.v1}>
@@ -42,7 +39,7 @@ const TrangChu = (props) => {
                     <Text style={st.td}>gia sp:  {item.giasp}</Text>
 
 
-                    <Text onPress={() => { props.navigation.navigate('ChiTiet', { item_sp: item }) }}>chi tiết</Text>
+                    <Text onPress={() => { props.navigation.navigate('ChiTiet', { item_sp: item }) }}>chi tiết </Text>
 
                 </View>
 
@@ -66,7 +63,7 @@ const TrangChu = (props) => {
                     (isLoading) ? (<ActivityIndicator />) : (
                       
                         <FlatList
-
+                            horizontal={true}
                             refreshControl={
 
                                 <RefreshControl refreshing={reLoading}

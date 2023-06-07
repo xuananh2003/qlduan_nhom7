@@ -23,7 +23,7 @@ const ChiTiet = ({ route }) => {
   
   const Save_Pro = () =>{
     let objPro = {img_pro: img_pro , tensp:tensp , giasp:giasp , danhgia:danhgia}
-    let url_api_giohang = 'http://172.16.10.106:3000/list_giohang'
+    let url_api_giohang = 'http://192.168.1.21:3000/list_giohang'
 
     fetch(url_api_giohang, {
       method: 'POST',
