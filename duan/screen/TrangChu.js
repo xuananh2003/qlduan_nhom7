@@ -12,7 +12,7 @@ const TrangChu = (props) => {
 
 
     const getListPro = async () => {
-        let api_url_pro = 'http://192.168.1.21:3000/list_pro'
+        let api_url_pro = 'http://172.16.10.106:3000/list_pro'
         try {
             const response = await fetch(api_url_pro);
             const json = await response.json();
@@ -26,7 +26,7 @@ const TrangChu = (props) => {
 
     const renderPro = ({ item }) => {
         return (
-            <View style={{ width: 200,height:300}}>
+            <View style={{ width: 200,height:250}}>
                
                 <View style={st.b1}>
                     <View style={st.v1}>
@@ -57,13 +57,15 @@ const TrangChu = (props) => {
             }, 1500);
         })
         return (
-            <SafeAreaView>
+            <SafeAreaView style={{flex:1, borderWidth:1,padding:5}}>
 
                 {
                     (isLoading) ? (<ActivityIndicator />) : (
                       
                         <FlatList
-                            horizontal={true}
+                          numColumns={2}
+                          
+                           
                             refreshControl={
 
                                 <RefreshControl refreshing={reLoading}

@@ -31,7 +31,7 @@
     {
       "id": 1,
       "img_pro": "https://maydongphuc24h.vn/wp-content/uploads/2021/08/dosiin-somehow-ao-thun-polo-nam-co-co-inf-theu-gau-dxchat-vai-cotton-co-gian-day-danplsomehow-35359706.jpg",
-      "tensp": "ao polo",
+      "tensp": "ao polo trang",
       "giasp": "250000",
       "danhgia": "san pham chat luong cao aaaaaaaaaaaaaaaaaaaaa "
     },
@@ -50,27 +50,27 @@
       "danhgia": "san pham chat luong cao "
     }
   ],
-  "list_giohang": [
+  "list_giohang": [],
+  "list_lichsu": [
     {
       "img_pro": "https://maydongphuc24h.vn/wp-content/uploads/2021/08/dosiin-somehow-ao-thun-polo-nam-co-co-inf-theu-gau-dxchat-vai-cotton-co-gian-day-danplsomehow-35359706.jpg",
-      "tensp": "ao polo",
+      "tensp": "ao polo trang",
       "giasp": "250000",
-      "danhgia": "san pham chat luong cao aaaaaaaaaaaaaaaaaaaaa ",
+      "tennguoimua": "",
+      "sdt": "",
+      "diachi": "",
+      "soluong": 3,
       "id": 1
     },
     {
       "img_pro": "https://maydongphuc24h.vn/wp-content/uploads/2021/08/dosiin-somehow-ao-thun-polo-nam-co-co-inf-theu-gau-dxchat-vai-cotton-co-gian-day-danplsomehow-35359706.jpg",
-      "tensp": "ao polo",
+      "tensp": "ao polo trang",
       "giasp": "250000",
-      "danhgia": "san pham chat luong cao aaaaaaaaaaaaaaaaaaaaa ",
+      "tennguoimua": "ff",
+      "sdt": "fff",
+      "diachi": "ffff",
+      "soluong": 4,
       "id": 2
-    },
-    {
-      "img_pro": "https://maydongphuc24h.vn/wp-content/uploads/2021/08/dosiin-somehow-ao-thun-polo-nam-co-co-inf-theu-gau-dxchat-vai-cotton-co-gian-day-danplsomehow-35359706.jpg",
-      "tensp": "ao polo",
-      "giasp": "250000",
-      "danhgia": "san pham chat luong cao aaaaaaaaaaaaaaaaaaaaa ",
-      "id": 3
     }
   ]
 }

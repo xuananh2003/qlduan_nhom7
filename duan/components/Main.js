@@ -11,10 +11,12 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 import TrangChu from '../screen/TrangChu'
 import GioHang from '../screen/GioHang'
+import LichSu from '../screen/LichSu';
 
 // screnn names
 const TrangChuName = 'TrangChu'
 const GioHangName = 'GioHang'
+const LichSuName = 'LichSu'
 
 const Tab = createBottomTabNavigator();
 
@@ -29,9 +31,11 @@ export default function Main(){
                     let rn = route.name;
 
                     if(rn == TrangChuName){
-                        iconName = focused ? "home" : "home-outline";
+                        iconName = fucused ? "home" : "home-outline";
                     }else if(rn == GioHangName){
                         iconName = fucused ? 'List' : 'home-outline'
+                    }else if(rn == LichSuName){
+                        iconName = fucused ? 'history' : 'home-outline'
                     }
 
                     return <Ionicons name={iconName} size={size} color={color} />;
@@ -51,6 +55,7 @@ export default function Main(){
               }}>
             <Tab.Screen name='Trang Chu' component={TrangChu}/>
             <Tab.Screen name='Gio Hang' component={GioHang}/>
+            <Tab.Screen name='Lich Su ' component={LichSu}/>
 </Tab.Navigator>
      
     )

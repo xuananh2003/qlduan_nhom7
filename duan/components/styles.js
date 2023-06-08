@@ -131,6 +131,14 @@ padding:5,
 width:350,
 marginBottom:20,
 marginRight:50
+    },
+    o:{
+        height: 40,
+        borderWidth: 1,
+        width: 320,
+        marginTop: 20,
+        padding: 10,
+    
     }
 
 })

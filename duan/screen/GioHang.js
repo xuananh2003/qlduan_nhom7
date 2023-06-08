@@ -9,7 +9,7 @@ const GioHang = (props) => {
     const [isLoading, setisLoading] = useState(true);
 
     const getListPro = async () => {
-        let url_api_giohang = 'http://192.168.1.21:3000/list_giohang'
+        let url_api_giohang = 'http://172.16.10.106:3000/list_giohang'
 
         try {
             const response = await fetch(url_api_giohang);
@@ -44,6 +44,25 @@ const GioHang = (props) => {
                            console.log(e);
                        })
               }
+              const DelProo = () =>{
+                let url_api_del = 'http://172.16.10.106:3000/list_giohang/' +item.id ;
+    
+                fetch(url_api_del,{
+    
+                    method: 'DELETE',
+                               headers: {
+                                   Accept: 'application/json',
+                                   'Content-Type': 'application/json',
+                               }
+                           }).then((res)=>{
+                               if(res.status ==200){
+                                   getListPro();
+                               }
+                           })
+                           .catch((e)=>{
+                               console.log(e);
+                           })
+                  }
               const showAlert = () =>{
                 Alert.alert('chức năng xóa ' ,'bạn có chắc muốn xóa và không mua sản phẩm này ?',
                 [
@@ -78,7 +97,7 @@ const GioHang = (props) => {
 
                 </View>
                 <View style={{ padding: 5 }}>
-                    <Button title="đặt mua" />
+                    <Button title="đặt mua" onPress={()=>{props.navigation.navigate('DonMua', {item_chitiet : item}, DelProo())}} />
                     <Button title="xóa" onPress={showAlert}/>
                     
                 </View>

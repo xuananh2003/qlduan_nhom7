@@ -4,7 +4,7 @@ import { useState } from "react";
 import { TextInput } from "react-native-gesture-handler";
 
 
-const ChiTiet = ({ route }) => {
+const ChiTiet = ({route, navigation}) => {
 
   const [count, setCount] = useState(0);
   // const onPress = () => setCount(count + 1);
@@ -23,7 +23,7 @@ const ChiTiet = ({ route }) => {
   
   const Save_Pro = () =>{
     let objPro = {img_pro: img_pro , tensp:tensp , giasp:giasp , danhgia:danhgia}
-    let url_api_giohang = 'http://192.168.1.21:3000/list_giohang'
+    let url_api_giohang = 'http://172.16.10.106:3000/list_giohang'
 
     fetch(url_api_giohang, {
       method: 'POST',
@@ -44,19 +44,6 @@ const ChiTiet = ({ route }) => {
   }
   
   
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   return (
@@ -83,7 +70,7 @@ const ChiTiet = ({ route }) => {
 
         <TouchableHighlight onPress={onPress1}>
           <View style={st.button}>
-            <Text>-</Text>
+            <Text>-</Text>s
           </View>
         </TouchableHighlight>
         <View style={st.countContainer}>
@@ -94,7 +81,7 @@ const ChiTiet = ({ route }) => {
         <View style={{}}>
           <Button title="them vao gio hang" onPress={Save_Pro}/>
           <Text> </Text>
-          <Button title="mua ngay" />
+          <Button title="mua ngay"onPress={() => {navigation.navigate('DonMua', { item_chitiet: route.params.item_sp }) }} />
         </View>
       </View>
     </View>
