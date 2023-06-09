@@ -4,6 +4,9 @@ import { useState } from "react";
 import React from "react";
 
 const GioHang = (props) => {
+   
+
+        
 
     const [dsPro, setdsPro] = useState([]);
     const [isLoading, setisLoading] = useState(true);
@@ -23,7 +26,11 @@ const GioHang = (props) => {
         }
     }
 
+
+
     const renderPro = ({ item }) => {
+
+
         const DelPro = () =>{
             let url_api_del = 'http://172.16.10.106:3000/list_giohang/' +item.id ;
 
@@ -44,25 +51,25 @@ const GioHang = (props) => {
                            console.log(e);
                        })
               }
-              const DelProo = () =>{
-                let url_api_del = 'http://172.16.10.106:3000/list_giohang/' +item.id ;
+            //   const DelProo = () =>{
+            //     let url_api_del = 'http://172.16.10.106:3000/list_giohang/' +item.id ;
     
-                fetch(url_api_del,{
+            //     fetch(url_api_del,{
     
-                    method: 'DELETE',
-                               headers: {
-                                   Accept: 'application/json',
-                                   'Content-Type': 'application/json',
-                               }
-                           }).then((res)=>{
-                               if(res.status ==200){
-                                   getListPro();
-                               }
-                           })
-                           .catch((e)=>{
-                               console.log(e);
-                           })
-                  }
+            //         method: 'DELETE',
+            //                    headers: {
+            //                        Accept: 'application/json',
+            //                        'Content-Type': 'application/json',
+            //                    }
+            //                }).then((res)=>{
+            //                    if(res.status ==200){
+            //                        getListPro();
+            //                    }
+            //                })
+            //                .catch((e)=>{
+            //                    console.log(e);
+            //                })
+            //       }
               const showAlert = () =>{
                 Alert.alert('chức năng xóa ' ,'bạn có chắc muốn xóa và không mua sản phẩm này ?',
                 [
@@ -93,17 +100,19 @@ const GioHang = (props) => {
                         source={{ uri: item.img_pro }} /></View>
                 <View style={{ width: 200, height: 80, marginTop: 10, padding: 5 }}>
                     <Text>tên sản phẩm : {item.tensp}</Text>
-                    <Text>gía : {item.giasp}</Text>
+                    <Text>giá : {item.giasp}</Text>
 
                 </View>
                 <View style={{ padding: 5 }}>
-                    <Button title="đặt mua" onPress={()=>{props.navigation.navigate('DonMua', {item_chitiet : item}, DelProo())}} />
+                    <Button title="đặt mua" onPress={()=>{props.navigation.navigate('DonMua', {item_chitiet : item}, )}} />
                     <Button title="xóa" onPress={showAlert}/>
                     
                 </View>
             </View>
         )
     }
+
+
 
     React.useEffect(() => {
         const unsubcribe = props.navigation.addListener('focus', () => {
@@ -125,12 +134,19 @@ const GioHang = (props) => {
                         data={dsPro}
                         keyExtractor={(item_sp) => { return item_sp.id }}
                         renderItem={renderPro}
+
+
+                       
                     />
 
                 )
+                
             }
+                  
+
         </View>
     )
+        
 }
 
 export default GioHang
