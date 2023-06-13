@@ -9,7 +9,7 @@ const HoaDon = (props) =>{
 
     
     const getListPro = async () => {
-        let url_api_hoadon = 'http://172.16.10.106:3000/list_hoadon'
+        let url_api_hoadon = 'http://192.168.1.41:3000/list_hoadon'
 
         try {
             const response = await fetch(url_api_hoadon);
