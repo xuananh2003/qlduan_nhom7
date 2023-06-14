@@ -121,25 +121,87 @@ const st = StyleSheet.create({
         marginTop: 20,
         flexDirection: 'row'
     },
-    searchBox:{
-paddingHorizontal:20,
-paddingVertical:10,
-borderColor:'black',
-borderWidth:1,
-borderRadius:8,
-padding:5,
-width:350,
-marginBottom:20,
-marginRight:50
+    searchBox: {
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 8,
+        padding: 5,
+        width: 350,
+        marginBottom: 20,
+        marginRight: 50,
+        marginTop:20
     },
-    o:{
+    o: {
         height: 40,
         borderWidth: 1,
         width: 320,
         marginTop: 20,
         padding: 10,
-    
-    }
+
+    },
+    them:{
+        backgroundColor: 'white',
+        marginTop: 125,
+        borderWidth: 1,
+        margin: 10,
+        flex: 1,
+        color: 'red'
+    },
+    x:{
+        width:30,
+        height:30,
+        borderWidth:1,
+        borderRadius:15,
+        textAlign:'center',
+        backgroundColor:'red', 
+        padding:5,
+      margin:7
+    },
+    o1: {
+        borderWidth: 0.2,
+        height: 35,
+        padding: 10,
+        margin: 10
+    },  btnchonanh:{
+        backgroundColor: '#FF9900',
+        width:150,
+        height:30,
+        borderRadius:20,
+        marginLeft:110,
+        borderWidth:1, 
+       marginTop:5
+       
+    },  i:{
+        backgroundColor:'yellow',
+        width:200,
+        zIndex:100, // quy định thứ tự xếp chồng
+        margin:20,
+
+      },us:{
+        backgroundColor:'yellow',
+        width:320,
+        height:80,
+        marginTop:65,
+        marginLeft:60,
+        padding:10,
+        flexDirection:'row',
+        borderRadius:20,
+        borderWidth:0.6,
+        paddingLeft:8,
+       
+    },dx:{
+        marginLeft:2,
+        marginTop:35,
+        backgroundColor:'#FFCCFF',
+        borderRadius:20,
+        padding:2,
+        width:80,
+        height:30,
+        textAlign:'center'
+
+    },
 
 })
 

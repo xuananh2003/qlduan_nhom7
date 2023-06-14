@@ -9,36 +9,30 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 //screns
 
 
-import TrangChu from '../screen/TrangChu'
-import GioHang from '../screen/GioHang'
-import LichSu from '../screen/LichSu';
-
+import Admin from '../screen1.js/Admin';
+import HoaDon from '../screen/HoaDon';
 
 // screnn names
-const TrangChuName = 'TrangChu'
-const GioHangName = 'GioHang'
-const LichSuName = 'LichSu'
-
-
+const AdminName = 'Admin'
+const HoaDonName = 'HoaDon'
 
 const Tab = createBottomTabNavigator();
 
-export default function Main(){
+export default function Main1(){
     return(
     
       <Tab.Navigator
-            initialRouteName={TrangChuName}
+            initialRouteName={AdminName}
             screenOption = {({route})=>({
                 tabBarIcon :({fucused, color, size})=>{
                     let iconName;
                     let rn = route.name;
 
-                    if(rn == TrangChuName){
+                    if(rn == AdminName){
                         iconName = fucused ? "home" : "home-outline";
-                    }else if(rn == GioHangName){
-                        iconName = fucused ? 'List' : 'home-outline'
-                    }else if(rn == LichSuName){
-                        iconName = fucused ? 'history' : 'home-outline'
+                   
+                    }else if(rn == HoaDonName){
+                        iconName = fucused ? 'HoaDon' : 'home-outline'
                     }
 
                     return <Ionicons name={iconName} size={size} color={color} />;
@@ -56,10 +50,8 @@ export default function Main(){
                   overflow: "hidden", // Để hình cong không bị tràn ra ngoài
                 },
               }}>
-            <Tab.Screen name='Trang Chu' component={TrangChu}/>
-            <Tab.Screen name='Gio Hang' component={GioHang}/>
-            <Tab.Screen name='Lich Su ' component={LichSu}/>
-            
+           <Tab.Screen name='trang chu' component={Admin} />
+            <Tab.Screen name='Hoa Don ' component={HoaDon}/>
 </Tab.Navigator>
      
     )

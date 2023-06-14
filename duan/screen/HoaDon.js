@@ -9,7 +9,7 @@ const HoaDon = (props) =>{
 
     
     const getListPro = async () => {
-        let url_api_hoadon = 'http://192.168.1.41:3000/list_hoadon'
+        let url_api_hoadon = 'http://172.16.10.106:3000/list_hoadon'
 
         try {
             const response = await fetch(url_api_hoadon);
@@ -29,15 +29,16 @@ return(
     <View style={{ padding: 10 }}>
                     <Image
                         style={{ width: 80, height: 85 }}
-                        source={{ uri: item.img_pro }} /></View>
+                        source={{ uri: item.img }} /></View>
                 <View style={{ marginTop: 10, padding: 5 }}>
-                    <Text>tên sản phẩm : {item.tensp}</Text>
+                    <Text>tên sản phẩm : {item.name}</Text>
                     
                     <Text>ten nguoi mua : {item.tennguoimua}</Text>
-                    <Text>sdt : {item.sdt}</Text>
-                    <Text>dia chi : {item.diachi}</Text>
+                    <Text>sdt : {item.phone}</Text>
+                    <Text>dia chi : {item.address}</Text>
                     <Text>so luong : {item.soluong}</Text>
-                    <Text>tong : {item.giasp}</Text>
+                    <Text>size : {item.size}</Text>
+                    <Text>tong : {item.price}</Text>
 
                 </View>
             

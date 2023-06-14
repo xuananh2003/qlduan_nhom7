@@ -14,6 +14,8 @@ import DangKi from './components/DangKi';
 import TrangChu from './screen/TrangChu';
 import ChiTiet from './screen/Chitiet';
 import DonMua from './components/DonMua';
+import Admin from './screen1.js/Admin';
+import Main1 from './components/Main1';
 
 const StackApp = createNativeStackNavigator();
 
@@ -24,13 +26,13 @@ const StackApp = createNativeStackNavigator();
 const App = () =>{
   return(
    <NavigationContainer>
-    <StackApp.Navigator  initialRouteName='Main'>
+    <StackApp.Navigator  initialRouteName='gt'>
       <StackApp.Screen name='gt' component={GioiThieu} options={{headerShown:false}}/>
       <StackApp.Screen name='DangNhap' component={DangNhap} options={{headerShown:false}}/>
       <StackApp.Screen name='DangKi' component={DangKi} options={{headerShown:false}}/>
       <StackApp.Screen name='ChiTiet' component={ChiTiet} options={{headerShown:false}}/>
       <StackApp.Screen name='DonMua' component={DonMua} options={{headerShown:false}}/>
-      
+      <StackApp.Screen name='Main1' component={Main1} options={{headerShown:false}}/>
 
     <StackApp.Screen name='Main' component={Main} options={{headerShown:false}}/>
     </StackApp.Navigator>

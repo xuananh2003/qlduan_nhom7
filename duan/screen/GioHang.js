@@ -2,9 +2,23 @@ import { Text, View, ActivityIndicator, FlatList, Image, Button, Alert } from "r
 import st from "../components/styles";
 import { useState } from "react";
 import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const GioHang = (props) => {
    
+    const getLoginInfo = async () => {
+        try {
+            const value = await AsyncStorage.getItem('loginInfo')
+            if (value !== null) {
+                // láy được dữ liệu 
+                setloginInfo(JSON.parse(value))
+            }
+        } catch (e) {
+    
+            console.log(e);
+        }
+    }
+    
 
         
 
@@ -12,7 +26,7 @@ const GioHang = (props) => {
     const [isLoading, setisLoading] = useState(true);
 
     const getListPro = async () => {
-        let url_api_giohang = 'http://192.168.1.41:3000/list_giohang'
+        let url_api_giohang = 'http://172.16.10.106:3000/list_giohang'
 
         try {
             const response = await fetch(url_api_giohang);
@@ -97,10 +111,10 @@ const GioHang = (props) => {
                 <View style={{ padding: 10 }}>
                     <Image
                         style={{ width: 80, height: 85 }}
-                        source={{ uri: item.img_pro }} /></View>
+                        source={{ uri: item.img }} /></View>
                 <View style={{ width: 200, height: 80, marginTop: 10, padding: 5 }}>
-                    <Text>tên sản phẩm : {item.tensp}</Text>
-                    <Text>giá : {item.giasp}</Text>
+                    <Text>tên sản phẩm : {item.name}</Text>
+                    <Text>giá : {item.price}</Text>
 
                 </View>
                 <View style={{ padding: 5 }}>
@@ -117,6 +131,7 @@ const GioHang = (props) => {
     React.useEffect(() => {
         const unsubcribe = props.navigation.addListener('focus', () => {
             getListPro();
+            getLoginInfo()
         });
         return unsubcribe
     }, [props.navigation]);

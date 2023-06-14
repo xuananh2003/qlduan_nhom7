@@ -16,13 +16,13 @@ const ChiTiet = ({route, navigation}) => {
 
 
 
-  const [img_pro, setImgage] = useState(route.params.item_sp.img_pro);
-  const [tensp, settensp] = useState(route.params.item_sp.tensp);
-  const [giasp, setgiasp] = useState(route.params.item_sp.giasp);
-  const [danhgia, setdanhgia] = useState(route.params.item_sp.danhgia);
+  const [img, setimg] = useState(route.params.item_sp.img);
+  const [name, setname] = useState(route.params.item_sp.name);
+  const [price, setprice] = useState(route.params.item_sp.price);
+  const [description, setdescription] = useState(route.params.item_sp.description);
   
   const Save_Pro = () =>{
-    let objPro = {img_pro: img_pro , tensp:tensp , giasp:giasp , danhgia:danhgia}
+    let objPro = {img: img , name:name , price:price , description:description}
     let url_api_giohang = 'http://172.16.10.106:3000/list_giohang'
 
     fetch(url_api_giohang, {
@@ -54,11 +54,11 @@ const ChiTiet = ({route, navigation}) => {
           <Image
 
             style={{ width: 260, height: 150 }}
-            source={{ uri: route.params.item_sp.img_pro }} />
+            source={{ uri: route.params.item_sp.img }} />
         </View>
-        <Text  style={st.td} >tên sản phẩm:  {route.params.item_sp.tensp}</Text>
-        <Text>giá: {route.params.item_sp.giasp}</Text>
-        <Text >đánh giá: {route.params.item_sp.danhgia}</Text>
+        <Text  style={st.td} >tên sản phẩm:  {route.params.item_sp.name}</Text>
+        <Text>giá: {route.params.item_sp.price}</Text>
+        <Text >đánh giá: {route.params.item_sp.description}</Text>
         <Text></Text>
         {/* <Text>so luong</Text>
         <TouchableHighlight onPress={onPress}>
