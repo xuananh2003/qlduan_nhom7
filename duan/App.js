@@ -26,7 +26,7 @@ const StackApp = createNativeStackNavigator();
 const App = () =>{
   return(
    <NavigationContainer>
-    <StackApp.Navigator  initialRouteName='gt'>
+    <StackApp.Navigator  initialRouteName='Main'>
       <StackApp.Screen name='gt' component={GioiThieu} options={{headerShown:false}}/>
       <StackApp.Screen name='DangNhap' component={DangNhap} options={{headerShown:false}}/>
       <StackApp.Screen name='DangKi' component={DangKi} options={{headerShown:false}}/>

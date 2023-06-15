@@ -1,10 +1,51 @@
-import { Text, View, ActivityIndicator, FlatList, Image, Button, Alert } from "react-native";
+import { Text, View, ActivityIndicator, FlatList, Image, Button, Alert, TouchableOpacity} from "react-native";
 import st from "../components/styles";
 import { useState } from "react";
 import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const GioHang = (props) => {
+    const [loginInfo, setloginInfo] = useState('');
+    const muatathang = async () => {
+       
+        
+      
+        // Gửi yêu cầu đặt hàng đến máy chủ
+        let url_api_dathang = 'http://172.16.10.106:3000/dathang';
+        let data_dathang = {
+          user_id: loginInfo.id,
+          items: dsPro.map(item => ({
+            product_id: item.id,
+            name:item.name,
+
+            soluong: 1 // Số lượng mặt hàng bằng 1
+          }))
+        };
+      
+        try {
+          const response = await fetch(url_api_dathang, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data_dathang),
+          });
+          const json = await response.json();
+      
+          // Nếu yêu cầu đặt hàng được xử lý thành công, xóa tất cả các mặt hàng trong giỏ hàng
+          if (response.status == 201) {
+            setdsPro([]);
+            setTongGia(0);
+            alert("Đặt hàng thành công!");
+          } else {
+            alert("Đặt hàng thất bại. Vui lòng thử lại sau.");
+          }
+        } catch (e) {
+          console.log(e);
+          alert("Đặt hàng thất bại. Vui lòng thử lại sau.");
+        }
+      };
    
     const getLoginInfo = async () => {
         try {
@@ -18,9 +59,16 @@ const GioHang = (props) => {
             console.log(e);
         }
     }
+    const tinhTongGia = () => {
+        let giaTong = 0;
+        for (let i = 0; i < dsPro.length; i++) {
+          giaTong += Number(dsPro[i].price);
+        }
+        setTongGia(giaTong);
+      };
     
 
-        
+    const [tongGia, setTongGia] = useState(0);
 
     const [dsPro, setdsPro] = useState([]);
     const [isLoading, setisLoading] = useState(true);
@@ -65,25 +113,7 @@ const GioHang = (props) => {
                            console.log(e);
                        })
               }
-            //   const DelProo = () =>{
-            //     let url_api_del = 'http://172.16.10.106:3000/list_giohang/' +item.id ;
-    
-            //     fetch(url_api_del,{
-    
-            //         method: 'DELETE',
-            //                    headers: {
-            //                        Accept: 'application/json',
-            //                        'Content-Type': 'application/json',
-            //                    }
-            //                }).then((res)=>{
-            //                    if(res.status ==200){
-            //                        getListPro();
-            //                    }
-            //                })
-            //                .catch((e)=>{
-            //                    console.log(e);
-            //                })
-            //       }
+         
               const showAlert = () =>{
                 Alert.alert('chức năng xóa ' ,'bạn có chắc muốn xóa và không mua sản phẩm này ?',
                 [
@@ -132,10 +162,14 @@ const GioHang = (props) => {
         const unsubcribe = props.navigation.addListener('focus', () => {
             getListPro();
             getLoginInfo()
+            tinhTongGia();
         });
         return unsubcribe
     }, [props.navigation]);
 
+    React.useEffect(() => {
+        tinhTongGia();
+      }, [dsPro]);
 
 
     return (
@@ -157,6 +191,15 @@ const GioHang = (props) => {
                 )
                 
             }
+
+<Text style={{ fontSize: 20 }}>Tổng giá: {tongGia} đ</Text>
+
+<TouchableOpacity
+    style={st.btnMua}
+    onPress={muatathang}
+  >
+    <Text style={{ color: 'white', fontSize: 20 }}>Mua tất cả</Text>
+  </TouchableOpacity>
                   
 
         </View>

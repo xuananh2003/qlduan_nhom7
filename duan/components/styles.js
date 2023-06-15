@@ -201,7 +201,9 @@ const st = StyleSheet.create({
         height:30,
         textAlign:'center'
 
-    },
+    },btnMua:{
+        backgroundColor:'green'
+    }
 
 })
 

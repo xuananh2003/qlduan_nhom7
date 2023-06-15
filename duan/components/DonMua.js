@@ -60,15 +60,6 @@ const DonMua = ({ navigation,route }) => {
   
   
 
-
-const a = () =>{
-  if (!selectedValue) {
-    setErrorMessage('Please select a value');
-    return;
-  }else{
-    Save_UserMua();
-  }
-}
   const getLoginInfo = async () => {
     try {
       const value = await AsyncStorage.getItem('loginInfo');
