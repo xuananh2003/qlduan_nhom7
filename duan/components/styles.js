@@ -87,10 +87,13 @@ const st = StyleSheet.create({
         fontWeight: 'bold'
 
     }, b1: {
-        borderWidth: 0.5,
+        
+        borderColor:'#C9C9C9',
+        borderWidth: 1,
         padding: 10,
-        backgroundColor: '#FFCC66',
+        backgroundColor: '#D4D4D4',
         margin: 5,
+        borderRadius:5
 
 
     },
@@ -114,7 +117,8 @@ const st = StyleSheet.create({
         padding: 10,
     },
     countText: {
-        color: '#FF00FF',
+        color: 'black',
+        fontWeight:'bold'
     },
     render_giohang: {
         backgroundColor: 'rgb(127, 255, 212)',
@@ -133,9 +137,10 @@ marginBottom:20,
 marginRight:50
     },
     o:{
-        height: 40,
+        height: 35,
         borderWidth: 1,
         width: 320,
+        borderRadius:10,
         marginTop: 20,
         padding: 10,
     

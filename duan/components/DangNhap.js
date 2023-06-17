@@ -16,7 +16,7 @@ const doLogin = () =>{
         alert("Chưa nhập password"); return ;
     }
 
-    let url_api = "http://192.168.1.41:3000/list_pro?email=" + emaildn ;
+    let url_api = "http://192.168.1.41:3000/list_user?email=" + emaildn ;
     fetch( url_api)
     .then ((res)=>{
      return res.json();

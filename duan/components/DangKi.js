@@ -17,7 +17,7 @@ const DangKi = (props) =>{
         }
 
         let objUser  = {email:email, password:password}
-        let url_api = "http://192.168.1.41:3000/list_pro"
+        let url_api = "http://192.168.1.41:3000/list_user"
 
         fetch(url_api,{
             method:'POST',
