@@ -1,39 +1,93 @@
-import { Text, View, Image, TextInput,TouchableOpacity } from "react-native";
+import { Text, View, Image, TextInput, TouchableHighlight, Alert , TouchableOpacity} from "react-native";
 import st from "./styles";
 import { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect } from "react";
+import DropDownPicker from "react-native-dropdown-picker";
 
 
 
 
 
-const DonMua = ({ route,navigation }) => {
+const DonMua = ({ navigation,route }) => {
 
 
-  const [img_pro, set] = useState(route.params.item_chitiet.img_pro);
-  const [tensp, settensp] = useState(route.params.item_chitiet.tensp);
-  const [giasp, setgiasp] = useState(route.params.item_chitiet.giasp);
+
+  const DelPro = () =>{
+    let url_api_del = 'http://172.16.10.100:3000/list_giohang/' +route.params.item_chitiet.id ;
+
+    fetch(url_api_del,{
+
+        method: 'DELETE',
+                   headers: {
+                       Accept: 'application/json',
+                       'Content-Type': 'application/json',
+                   }
+               }).then((res)=>{
+                   if(res.status ==200){
+                      
+                  
+                   }
+               })
+               .catch((e)=>{
+                   console.log(e);
+               })
+      }
+  
+
+  const [loginInfo, setloginInfo] = useState('');
+
+  const [img, setimg] = useState(route.params.item_chitiet.img);
+  const [name, setname] = useState(route.params.item_chitiet.name);
+  const [price, setprice] = useState(route.params.item_chitiet.price);
   const [tennguoimua, settennguoimua] = useState('');
-  const [sdt, setsdt] = useState('');
-  const [diachi, setdiachi] = useState('');
+  const [phone, setphone] = useState('');
+  const [address, setaddress] = useState('');
+
+
+
+  
+
+  
+
+  const [open, setOpen] = useState(false);  // sổ list xuống hay không
+  const [value, setValue] = useState(null);  // giá trị người dùng chọn
+  const [size, setsize] = useState([    // mảng các phần tử
+    {label: 'S', value: 'S' },
+    {label: 'L', value: 'L' },
+    {label: 'M', value: 'M' }
+  ]);
+  
+  
+
+  const getLoginInfo = async () => {
+    try {
+      const value = await AsyncStorage.getItem('loginInfo');
+      if (value !== null) {
+        // cập nhật giá trị cho biến state loginInfo
+        setloginInfo(JSON.parse(value));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
 
 
 
 
-
-
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const onPress = () => setCount(count + 1);
   const onPress1 = () => {
-    if (count > 0) {
+    if (count > 1) {
       setCount(count - 1)
     }
   };
 
 
   const Save_UserMua = () => {
-    let objUserMua = { img_pro: img_pro, tensp: tensp, giasp: giasp * count, tennguoimua: tennguoimua, sdt: sdt, diachi: diachi, soluong: count }
-    let url_api_hoadon = 'http://192.168.1.41:3000/list_hoadon'
+    let objUserMua = { img: img, name: name, price: price * count, tennguoimua: tennguoimua, phone: phone, address: address, soluong: count , size:value }
+    let url_api_hoadon = 'http://172.16.10.100:3000/list_hoadon'
 
     
 
@@ -46,6 +100,7 @@ const DonMua = ({ route,navigation }) => {
       body: JSON.stringify(objUserMua)
     }).then((res) => {
       if (res.status == 201)
+    
         alert("đặt hàng thành công")
 
     })
@@ -56,75 +111,86 @@ const DonMua = ({ route,navigation }) => {
 
   }
 
+  useEffect(() => {
+    getLoginInfo();
+   
+    
+    if (loginInfo.tennguoimua) {
+      settennguoimua(loginInfo.tennguoimua);
+    } if (loginInfo.phone) {
+      setphone(loginInfo.phone);
+    } if (loginInfo.address) {
+      setaddress(loginInfo.address);
+    }
+  }, [loginInfo]);
+
 
 
 
 
 
   return (
-    <View style={{marginTop:35}}>
-      <Text style={{marginLeft:20,fontSize:25,fontWeight:'bold'}}>Purchase Order</Text>
-      <View style={{borderWidth:1,margin:5,borderRadius:10,backgroundColor:'#c1c1c1'}}>
-      <View style={{marginTop:20, }}>
-      <Image
+    <View style={st.container}>
+<View style={{width:400, height:750, borderWidth:1, borderRadius:20, backgroundColor:'#DDEEFF', padding:30}}>
+      <View style={st.v3}>
+        <Image
 
-        style={{ width: 260, height: 150,alignSelf:'center',marginBottom:10 }}
-        source={{ uri: route.params.item_chitiet.img_pro }} />
-    </View>
-    <View style={{marginLeft:10}}>
-    <Text style={{fontSize:20,fontWeight:'bold'}} >Product name:  {route.params.item_chitiet.tensp}</Text>
-    <Text style={{fontWeight:'bold'}}>Price: {route.params.item_chitiet.giasp}</Text>
-    </View>
+          style={{ width: 250, height: 200,  marginLeft:60 }}
+          source={{ uri: route.params.item_chitiet.img }} />
+      </View>
+      <Text style={st.td} >tên sản phẩm:  {route.params.item_chitiet.name}</Text>
+      <Text style={{fontWeight:'bold', fontSize:15}}>giá: {route.params.item_chitiet.price}</Text>
+
+<Text style={st.o}>Tên người mua: {tennguoimua}</Text>
+<Text style={st.o}>phone: {phone}</Text>
+<Text style={st.o}>dia chi : {address}</Text>
+<View style={{width:200,paddingTop:10, zIndex:100 }}>
+<DropDownPicker
+    title="chon size"
+  style={{marginRight:30}}
+      open={open}
+      value={value}
+      items={size}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setsize}
+      defaultValue="1"
+      placeholder={"chon size"} // hoặc placeholder={null}
+      
    
-
-<View style={{alignSelf:'center'}}>
-<TextInput placeholder="Buyer" style={st.o} onChangeText={(txt) => { settennguoimua(txt) }} />
-<TextInput placeholder="Phone"  style={st.o} onChangeText={(txt) => { setsdt(txt) }} />
-<TextInput placeholder="Address" style={st.o} onChangeText={(txt) => { setdiachi(txt) }} />
-</View>
    
-<View style={{ flexDirection: 'row',marginLeft:10,marginTop:10}}>
-<Text style={{fontWeight:'bold',alignSelf:'center'}}>Quantity</Text>
-<View style={{ flexDirection: 'row',marginLeft:10 }}>
-
-<TouchableOpacity onPress={onPress1} style={{ alignSelf: 'center' }}>
-<View style={{ borderWidth: 1, borderRadius: 40, width: 30, height: 30, backgroundColor: '#c1c1c1', justifyContent: 'center', alignItems: 'center' }}>
-  <Text style={{ fontSize: 30, alignSelf: 'center', marginTop: -8 }}> - </Text>
-</View>
-</TouchableOpacity>
-
-
   
 
+    />
+ </View>
+  
+       <Text style={{padding:10}}>so luong</Text>
+      <View style={{ flexDirection: 'row' }}>
 
-      <View style={st.countContainer}>
-        <Text style={st.countText}>{count}</Text>
+        <TouchableHighlight onPress={onPress1} style={{  width:30,borderRadius:30,marginBottom:5,
+        height:30,}}>
+          <View style={st.button}>
+            <Text>-</Text>
+          </View>
+        </TouchableHighlight>
+
+
+        <View style={st.countContainer}>
+          <Text style={st.countText}>{count}</Text>
+        </View>
+        <TouchableHighlight onPress={onPress} style={{  width:30,borderRadius:30,
+        height:30,}}>
+          <View style={st.button}>
+            <Text>+</Text>
+          </View>
+        </TouchableHighlight>
       </View>
-      <TouchableOpacity onPress={onPress} style={{ alignSelf: 'center' }}>
-      <View style={{ borderWidth: 1, borderRadius: 40, width: 30, height: 30, backgroundColor: '#c1c1c1', justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ fontSize: 20, alignSelf: 'center', marginTop: -2 }}> + </Text>
-      </View>
-    </TouchableOpacity>
+<Text style={{marginTop:10, color:'red', fontSize:20, fontWeight:'bold'}}> tổng tiền: {Number(Number(count)* Number(route.params.item_chitiet.price))}</Text>
+<View style={{flex:1}}/>
+<TouchableOpacity style={{ borderWidth: 1, borderRadius: 10, height: 50, width: '40%', justifyContent: 'center', alignSelf: 'center',backgroundColor:'#c1c1c1',marginBottom:10 }} onPress={Save_UserMua} >
+          <Text style={{alignSelf:'center', fontWeight:'bold', fontSize:20}}>Đặt mua</Text>
+          </TouchableOpacity></View>
     </View>
-</View>
-
-
-<Text style={{marginTop:10, color:'red', fontSize:20,fontWeight:'bold',marginLeft:10}}> Total: {Number(Number(count)* Number(route.params.item_chitiet.giasp))}</Text>
-
-    <View style={{flexDirection:'row', alignSelf:"center",marginTop:10}}>
-    <View style={{flex:1}}/>
-    <TouchableOpacity style={{ borderWidth: 1, borderRadius: 10, height: 30, width: '40%', justifyContent: 'center', alignSelf: 'center',backgroundColor:'#c1c1c1',marginBottom:10 }} onPress={Save_UserMua} >
-    <Text style={{alignSelf:'center', fontWeight:'bold'}}> Buy Now</Text>
-    </TouchableOpacity>
-    <View style={{flex:1}}/>
-    <TouchableOpacity style={{ borderWidth: 1, borderRadius: 10, height: 30, width: '40%', justifyContent: 'center', alignSelf: 'center',backgroundColor:'#c1c1c1',marginBottom:10 }}onPress={() => navigation.goBack()} >
-    <Text style={{alignSelf:'center', fontWeight:'bold'}}> Cancel</Text>
-    </TouchableOpacity>
-    <View style={{flex:1}}/>
-  </View>
-  </View>
-      </View>
-     
   )
 }
 

@@ -1,13 +1,28 @@
 import { Text, View ,Image, TextInput, TouchableHighlight} from "react-native";
 import { useState } from "react";
 import st from "./styles";
+import validator from 'validator';
+import { Alert } from "react-native";
 const DangKi = (props) =>{
 
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
     const [enterpasswd, setenterpasswd] = useState('');
+    const [tennguoimua, settennguoimua] = useState('');
+    const [address, setadress] = useState('');
+    const [phone, setphone] = useState('');
+    
+
+    
 
     const SaveUser = () =>{
+
+        if (!validator.isEmail(email)) {
+            Alert.alert('lỗi', 'email sai định dạng');
+            return
+          } 
+        
+        
         if(email ==0){
             return
         }if(password ==0){
@@ -16,8 +31,8 @@ const DangKi = (props) =>{
             return
         }
 
-        let objUser  = {email:email, password:password}
-        let url_api = "http://192.168.1.41:3000/list_user"
+        let objUser  = {email:email, password:password , tennguoimua:tennguoimua, address:address, phone:phone}
+        let url_api = "http://172.16.10.100:3000/list_user"
 
         fetch(url_api,{
             method:'POST',
@@ -45,7 +60,7 @@ const DangKi = (props) =>{
                     style={{ width: 220, height: 75 }}
                 />
                 <Text style={st.dangnhap}>Đăng kí tài khoản</Text>
-                <TextInput placeholder="Email" style={st.onhap} onChangeText={(txt)=>setemail(txt)} />
+                <TextInput placeholder="Email" style={st.onhap} value={email} onChangeText={(txt)=>setemail(txt)} />
                 <Text
             style={{
               fontSize: 11,
@@ -81,6 +96,40 @@ const DangKi = (props) =>{
             }}>{enterpasswd.length == 0 ? "không được để trống ô này" : enterpasswd != password ? "mật khẩu không khớp": ""}
 
           </Text>
+
+          <TextInput placeholder="tên người dùng" style={st.onhap} onChangeText={(txt)=>settennguoimua(txt)} />
+                <Text
+            style={{
+              fontSize: 11,
+              color: 'red',
+             paddingRight:140,
+             paddingTop:5
+            }}>{tennguoimua.length == 0 ? "không được để trống tên người dùng" : ""}
+
+          </Text>
+
+          <TextInput placeholder="nhập địa chỉ" style={st.onhap} onChangeText={(txt)=>setadress(txt)} />
+                <Text
+            style={{
+              fontSize: 11,
+              color: 'red',
+             paddingRight:180,
+             paddingTop:5
+            }}>{address.length == 0 ? "không được để trống địa chỉ" : ""}
+
+          </Text>
+
+          <TextInput placeholder="nhập số điện thoại" style={st.onhap} onChangeText={(txt)=>setphone(txt)} />
+                <Text
+            style={{
+              fontSize: 11,
+              color: 'red',
+             paddingRight:180,
+             paddingTop:5
+            }}>{phone.length <= 0 ? "Không được để trống sdt " : isNaN(phone) ? "Giá phải là chữ số" : ""}
+
+          </Text>
+
 
 
                 <TouchableHighlight activeOpacity={0.6} underlayColor="#9C9C9C" style={{ borderRadius: 20, width: 320, height: 40, marginTop: 10 }}  >

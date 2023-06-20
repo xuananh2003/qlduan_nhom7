@@ -1,16 +1,20 @@
-import { View, Text, Image, TextInput } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import React, { useState, useEffect } from "react";
-import { SafeAreaView, ActivityIndicator, FlatList, RefreshControl } from "react-native";
+import { View, Text, Image, ActivityIndicator, FlatList, TextInput, Button, TouchableHighlight, RefreshControl, SafeAreaView } from "react-native";
 import st from "../components/styles";
+import { useState, useEffect } from "react";
+import Icon from "react-native-vector-icons/FontAwesome";
+import React from "react";
+import { Ionicons } from "@expo/vector-icons";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const TrangChu = (props) => {
   const [isLoading, setisLoading] = useState(true);
+  const [showDialog, setshowDialog] = useState(true)
   const [dsPro, setdsPro] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [loginInfo, setloginInfo] = useState('');
 
   const getListPro = async () => {
-    let api_url_pro = 'http://192.168.1.41:3000/list_pro';
+    let api_url_pro = 'http://172.16.10.100:3000/list_pro';
     try {
       const response = await fetch(api_url_pro);
       const json = await response.json();
@@ -23,20 +27,19 @@ const TrangChu = (props) => {
   };
 
   const renderPro = ({ item }) => {
+    
+
     return (
-      <View style={{ backgroundColor: '#C1C1C1', padding: 2, margin: 10,borderRadius:10,borderColor:'#B1B1B1',borderWidth:1 }}>
-      <View style={{ padding: 10 }}>
-        <Image
-          style={{ width: 80, height: 85 }}
-          source={{ uri: item.img_pro }}
-        />
+      <View style={{ width: 200, height: 280,  }}>
+        <View style={st.b1}>
+          <View style={st.v1}>
+            <Image style={{ width: 170, height: 160 }} source={{ uri: item.img }} />
+          </View>
+          <Text style={st.td}> {item.name}</Text>
+          <Text style={st.td}> $: {item.price}</Text>
+          <Text onPress={() => { props.navigation.navigate('ChiTiet', { item_sp: item }) }}>  chi tiết</Text>
+        </View>
       </View>
-      <View style={{ marginTop: 10, padding: 5 }}>
-        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20,borderRadius:10 }}> {item.tensp}</Text>
-        <Text style={{ color: 'black' }}>Total: {item.giasp}</Text>
-        <Text  style={{ color: 'black',fontWeight:'bold' }} onPress={() => { props.navigation.navigate('ChiTiet', { item_sp: item }) }}>chi tiết</Text>
-      </View>
-    </View>
     );
   };
 
@@ -56,7 +59,10 @@ const TrangChu = (props) => {
           <ActivityIndicator />
         ) : (
           <FlatList
-       
+            
+           numColumns={2}
+
+        
             refreshControl={<RefreshControl refreshing={reLoading} onRefresh={reLoadData} />}
             data={filterProducts()}
             keyExtractor={(item_db) => item_db.id}
@@ -72,61 +78,64 @@ const TrangChu = (props) => {
       return dsPro;
     }
     return dsPro.filter((item) =>
-      item.tensp.toLowerCase().includes(searchText.toLowerCase())
+      item.name.toLowerCase().includes(searchText.toLowerCase())
     );
   };
+  const getLoginInfo = async () => {
+    try {
+        const value = await AsyncStorage.getItem('loginInfo')
+        if (value !== null) {
+            // láy được dữ liệu 
+            setloginInfo(JSON.parse(value))
+        }
+    } catch (e) {
+
+        console.log(e);
+    }
+}
 
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
+      // khi màn hình đc active thì lệnh hoạt động
       getListPro();
+      getLoginInfo();
     });
 
     return unsubscribe;
   }, [props.navigation]);
 
+
+//   const showAlertdx = () =>{
+//     Alert.alert('chức năng đăng xuất ' ,'bạn có chắc muốn đăng xuất ?',
+//     [
+//         {
+//             text:"yes",
+//             onPress: ()=>{
+//                 props.navigation.navigate('Home')
+//             }
+
+//         },
+
+//         {
+//             text:"thoát",
+//             onPress: ()=>{
+
+//             }
+//         }
+
+//     ])
+// }
   return (
-    <View style={{ marginTop: 20 }}>
+    <View style={st.container}>
+      <View style={{flexDirection:'row'}}>
+<Ionicons name="md-person" size={40} color="#0066FF" style={{marginTop:20, }} />
+<Text style={st.hi} >Hi, {loginInfo.tennguoimua}  </Text>
 
-      <View style={{ height: 80, flexDirection: "row" }}>
-
-        <View style={{ flexDirection: "row", marginLeft: 20 }}>
-          <Image
-            style={{
-              width: 50,
-              height: 50,
-              alignSelf: "center",
-              borderRadius: 40,
-            }}
-            source={{ uri: "https://picsum.photos/id/237/200/300" }}
-          />
-          <Text style={{ alignSelf: "center", marginLeft: 10 }}>Hi, </Text>
-          <Text style={{ alignSelf: "center" }}>Xuân anh</Text>
-        </View>
-        <View
-        style={{
-          alignSelf: "center",
-          justifyContent: "flex-end",
-          marginRight: 20,
-        }}
-      >
-        <Image
-          source={{source: require('../assets/shopping-cart.png')}}
-          style={{ width: 20, height: 20 }}
-        />
-      </View>
-
-        <View style={{ flex:1  }}></View>
-      
-        
-      </View>
-      <View style={{ marginLeft: 20, marginTop: 10 }}>
-        <Text style={{ fontSize: 27, fontWeight: "bold" }}>
-          Find the best fit for{" "}
-        </Text>
-        <Text style={{ fontSize: 27, fontWeight: "bold" }}>
-          all your needs!
-        </Text>
-        <View
+</View>
+<Text style={st.gtt}>
+  Find the best fit for all your needs!
+</Text>
+          <View
           style={{
             flexDirection: 'row',
             borderWidth: 1,
@@ -137,6 +146,7 @@ const TrangChu = (props) => {
            height: 42,
             marginTop: 10,
             borderRadius: 15,
+            marginBottom: 10,
           }}
         >
           <Icon
@@ -152,20 +162,11 @@ const TrangChu = (props) => {
           />
           <Icon name="ellipsis-h" size={20} style={{ marginRight: 15 }} />
         </View>
-      </View>
-    
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <FlatList
-        style={{height:'85%'}}
-          data={filterProducts()}
-          keyExtractor={(item_db) => item_db.id.toString()}
-          renderItem={renderPro}
-        />
-      )}
-      </View>
+     
 
+      <Reload />
+    </View>
   );
-}
+};
+
 export default TrangChu;
