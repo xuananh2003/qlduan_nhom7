@@ -1,7 +1,7 @@
 import { View, Image, Text, TextInput ,TouchableHighlight,Linking, } from "react-native";
 import st from "./styles";
 
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DangNhap = (props) =>{
@@ -19,7 +19,7 @@ const doLogin = () =>{
         alert("đăng nhập thành công") ; return ;
     }
 
-    let url_api = "http://172.16.10.106:3000/list_user?email=" + emaildn ;
+    let url_api = "http://10.24.57.251:3000/list_user?email=" + emaildn ;
     fetch( url_api)
     .then ((res)=>{
      return res.json();
@@ -46,7 +46,14 @@ const doLogin = () =>{
     })
 }
 
-
+useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      setemaildn('');
+      setpassworddn('');
+    });
+  
+    return unsubscribe;
+  }, [props.navigation]);
 
 
 
@@ -58,8 +65,8 @@ const doLogin = () =>{
                     style={{ width: 220, height: 75 }}
                 />
                 <Text style={st.dangnhap}>Đăng nhập</Text>
-                <TextInput placeholder="Email" style={st.onhap} onChangeText={(txt) => setemaildn(txt)} />
-                <TextInput placeholder="Password " style={st.onhap1} onChangeText={(txt) => setpassworddn(txt)} secureTextEntry={true} />
+                <TextInput placeholder="Email" style={st.onhap} onChangeText={(txt) => setemaildn(txt)} value={emaildn} />
+                <TextInput placeholder="Password " style={st.onhap1} onChangeText={(txt) => setpassworddn(txt)} secureTextEntry={true} value={passworddn} />
 
                 <TouchableHighlight activeOpacity={0.6} underlayColor="#9C9C9C" style={{ borderRadius: 20, width: 320, height: 40, marginTop: 10 }}  onPress={doLogin}>
                     <Text style={st.login} >Login</Text>

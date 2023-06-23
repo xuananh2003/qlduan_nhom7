@@ -29,7 +29,7 @@ const Add = () => {
 
     const SavePro = () => {
         let objPro = { name: name, img: img, description: description, price: price, size: size }
-        let url_api = 'http://172.16.10.106:3000/list_pro';
+        let url_api = 'http://10.24.57.251:3000/list_pro';
 
         fetch(url_api, {
             method: 'POST',
@@ -119,7 +119,9 @@ const Add = () => {
 
 
             </Modal>
-            <Button title="them" onPress={() => setshowDialog(true)} />
+        
+            <Text style={{margin:5, fontWeight:'bold', backgroundColor:'blue', width:50, height:50, textAlign:'center',paddingTop:14, borderRadius:50}} onPress={() => setshowDialog(true)}>+</Text>
+            
         </View>
     )
 

@@ -1,4 +1,4 @@
-import { Text, View, Image, Button, TouchableHighlight } from "react-native";
+import { Text, View, Image, Button, TouchableHighlight, TouchableOpacity } from "react-native";
 import st from "../components/styles";
 import { useState } from "react";
 import { TextInput } from "react-native-gesture-handler";
@@ -23,7 +23,7 @@ const ChiTiet = ({route, navigation}) => {
   
   const Save_Pro = () =>{
     let objPro = {img: img , name:name , price:price , description:description}
-    let url_api_giohang = 'http://172.16.10.106:3000/list_giohang'
+    let url_api_giohang = 'http://10.24.57.251:3000/list_giohang'
 
     fetch(url_api_giohang, {
       method: 'POST',
@@ -48,40 +48,30 @@ const ChiTiet = ({route, navigation}) => {
 
   return (
     <View style={st.container}>
-      <Text style={{ paddingTop: 150, fontSize: 25 }}>Chi tiet san pham</Text>
-      <View style={st.b1}>
-        <View style={st.v1}>
+
+      <View style={st.b2}>
+        <View style={st.v2}>
           <Image
 
-            style={{ width: 260, height: 150 }}
+style={{ width: 230, height: 190 }}
             source={{ uri: route.params.item_sp.img }} />
         </View>
         <Text  style={st.td} >tên sản phẩm:  {route.params.item_sp.name}</Text>
-        <Text>giá: {route.params.item_sp.price}</Text>
-        <Text >đánh giá: {route.params.item_sp.description}</Text>
+        <Text style={st.ct}>giá: {route.params.item_sp.price}</Text>
+        <Text style={st.ct} >đánh giá: {route.params.item_sp.description}</Text>
         <Text></Text>
-        {/* <Text>so luong</Text>
-        <TouchableHighlight onPress={onPress}>
-          <View style={st.button}>
-            <Text>+</Text>
-          </View>
-        </TouchableHighlight>
-
-
-        <TouchableHighlight onPress={onPress1}>
-          <View style={st.button}>
-            <Text>-</Text>s
-          </View>
-        </TouchableHighlight>
-        <View style={st.countContainer}>
-          <Text style={st.countText}>{count}</Text>
-        </View> */}
+       
 
         <Text></Text>
-        <View style={{}}>
-          <Button title="them vao gio hang" onPress={Save_Pro}/>
-          <Text> </Text>
-          <Button title="mua ngay"onPress={() => {navigation.navigate('DonMua', { item_chitiet: route.params.item_sp }) }} />
+        <View style={{flexDirection:'row',alignSelf:"center",marginBottom:30, marginLeft:10,marginRight:10}}>
+        <TouchableOpacity style={{ borderWidth: 1, borderRadius: 10, height: 30, width: '40%', justifyContent: 'center', alignSelf: 'center',backgroundColor:'#c1c1c1',marginBottom:10 }} onPress={Save_Pro} >
+          <Text style={{alignSelf:'center', fontWeight:'bold'}}> Add to Cart</Text>
+          </TouchableOpacity>
+        
+          <View style={{flex:1}}/>
+          <TouchableOpacity style={{ borderWidth: 1, borderRadius: 10, height: 30, width: '40%', justifyContent: 'center', alignSelf: 'center',backgroundColor:'#c1c1c1',marginBottom:10 }} onPress={() => { navigation.navigate('DonMua', { item_chitiet: route.params.item_sp }) }} >
+          <Text style={{alignSelf:'center', fontWeight:'bold'}}> Buy Now</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

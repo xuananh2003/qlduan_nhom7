@@ -32,7 +32,7 @@ const DangKi = (props) =>{
         }
 
         let objUser  = {email:email, password:password , tennguoimua:tennguoimua, address:address, phone:phone}
-        let url_api = "http://172.16.10.106:3000/list_user"
+        let url_api = "http://10.24.57.251:3000/list_user"
 
         fetch(url_api,{
             method:'POST',

@@ -6,46 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const GioHang = (props) => {
     const [loginInfo, setloginInfo] = useState('');
-    const muatathang = async () => {
-       
-        
-      
-        // Gửi yêu cầu đặt hàng đến máy chủ
-        let url_api_dathang = 'http://172.16.10.106:3000/dathang';
-        let data_dathang = {
-          user_id: loginInfo.id,
-          items: dsPro.map(item => ({
-            product_id: item.id,
-            name:item.name,
 
-            soluong: 1 // Số lượng mặt hàng bằng 1
-          }))
-        };
-      
-        try {
-          const response = await fetch(url_api_dathang, {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data_dathang),
-          });
-          const json = await response.json();
-      
-          // Nếu yêu cầu đặt hàng được xử lý thành công, xóa tất cả các mặt hàng trong giỏ hàng
-          if (response.status == 201) {
-            setdsPro([]);
-            setTongGia(0);
-            alert("Đặt hàng thành công!");
-          } else {
-            alert("Đặt hàng thất bại. Vui lòng thử lại sau.");
-          }
-        } catch (e) {
-          console.log(e);
-          alert("Đặt hàng thất bại. Vui lòng thử lại sau.");
-        }
-      };
    
     const getLoginInfo = async () => {
         try {
@@ -74,7 +35,7 @@ const GioHang = (props) => {
     const [isLoading, setisLoading] = useState(true);
 
     const getListPro = async () => {
-        let url_api_giohang = 'http://172.16.10.106:3000/list_giohang'
+        let url_api_giohang = 'http://10.24.57.251:3000/list_giohang'
 
         try {
             const response = await fetch(url_api_giohang);
@@ -94,7 +55,7 @@ const GioHang = (props) => {
 
 
         const DelPro = () =>{
-            let url_api_del = 'http://172.16.10.106:3000/list_giohang/' +item.id ;
+            let url_api_del = 'http://10.24.57.251:3000/list_giohang/' +item.id ;
 
             fetch(url_api_del,{
 
@@ -148,9 +109,16 @@ const GioHang = (props) => {
 
                 </View>
                 <View style={{ padding: 5 }}>
-                    <Button title="đặt mua" onPress={()=>{props.navigation.navigate('DonMua', {item_chitiet : item}, )}} />
-                    <Button title="xóa" onPress={showAlert}/>
-                    
+                   
+                 
+                    <TouchableOpacity style={{ borderWidth: 1, borderRadius: 10, height: 30, width: 80, justifyContent: 'center', alignSelf: 'center',backgroundColor:'#c1c1c1', marginTop:10 }} onPress={()=>{props.navigation.navigate('DonMua', {item_chitiet : item}, )}} >
+          <Text style={{alignSelf:'center', fontWeight:'bold'}}> Buy Now</Text>
+          </TouchableOpacity>
+          
+          <View style={{flex:1}}/>
+          <TouchableOpacity style={{ borderWidth: 1, borderRadius: 10, height: 30, width: 80, justifyContent: 'center', alignSelf: 'center',backgroundColor:'#c1c1c1',marginBottom:15 }} onPress={showAlert} >
+          <Text style={{alignSelf:'center', fontWeight:'bold'}}> Delete</Text>
+          </TouchableOpacity>
                 </View>
             </View>
         )
@@ -194,12 +162,7 @@ const GioHang = (props) => {
 
 <Text style={{ fontSize: 20 }}>Tổng giá: {tongGia} đ</Text>
 
-<TouchableOpacity
-    style={st.btnMua}
-    onPress={muatathang}
-  >
-    <Text style={{ color: 'white', fontSize: 20 }}>Mua tất cả</Text>
-  </TouchableOpacity>
+
                   
 
         </View>

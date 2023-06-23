@@ -19,7 +19,7 @@ const Update = (props) => {
     const SavePro = () => {
         let _idPro = props.item_db.id
         let objPro = { name: name, img: img, description: description,  price: price}
-        let url_api = 'http://172.16.10.106:3000/list_pro/' +_idPro;
+        let url_api = 'http://10.24.57.251:3000/list_pro/' +_idPro;
 
         fetch(url_api, {
             method: 'PUT',
@@ -91,7 +91,11 @@ const Update = (props) => {
 
 
             </Modal>
-            <Button title="sua" onPress={() => setshowDialog(true)} />
+
+            <TouchableHighlight
+            activeOpacity={0.6} underlayColor="#ccc" style={st.del}  onPress={() => setshowDialog(true)}>
+            <Text style={{ fontSize: 20, textAlign: 'center' }} >Update </Text>
+          </TouchableHighlight>
         </View>
     )
 
